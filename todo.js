@@ -176,49 +176,6 @@ var getTracks = (trackName, key) => {
 };
 
 /**
- * This function gets the location of concerts
- * @async
- * @param {string} id - Name of the artist you want to find concerts for
- * @param {string} apiKey - API key
- * @requires request
- */
-var getConcerts = (id, apiKey) => {
-    return new Promise((resolve,reject) => {
-        request({
-            url: `http://api.songkick.com/api/3.0/artists/${id}/calendar.json?apikey=${apiKey}`,
-            json: true
-        }, (error, response, body) => {
-            if (error) {
-                reject('Cannot connect to Songkick API');
-                console.log(error);
-            }else if (body.resultsPage.totalEntries == 0) {
-                resolve({
-                    error : 'Concert not Found'
-                });
-            }else {
-                var concertlist = [];
-                var concertThing = {};
-                var innerConcert = {};
-                for (var i = 0; i < body.resultsPage.results.event.length; i++) {
-                    concertThing['event' + i] = {
-                        name: body.resultsPage.results.event[i].venue.displayName,
-                        date: body.resultsPage.results.event[i].start.date,
-                        city: body.resultsPage.results.event[i].location.city,
-                        lat: body.resultsPage.results.event[i].location.lat,
-                        lng: body.resultsPage.results.event[i].location.lng
-                    };
-                }
-                resolve(concertThing);
-                // resolve({
-                //     uri: body.resultsPage.results.artist[0]['uri'],
-                //     id: body.resultsPage.results.artist[0]['id']
-                // });
-            }
-        });
-    });
-};
-
-/**
  * This function gets the artist ID
  * @async
  * @param {string} artist - Name of the artist you want to search
@@ -283,7 +240,27 @@ var addPlaylist = (usersArr, song, artist, image) => {
 	}
 	writeFile(usersArr);
 	return checker
-}
+};
+
+var searchForSong = (songName, artistName="", fetchLyrics=false) => { // changed artistName to have a default of "", so we can do searchForSong(songName);
+    return new Promise((resolve,reject) => {
+        querySong(songName, artistName).then((song) => {
+            if (song.id == 0) {
+                reject("Cannot find song");
+            }
+
+            console.log("Song Name: " + song.title);
+            console.log("Song ID: " + song.id);
+            console.log("Song Artist:" + song.primary_artist.name);
+
+            if (fetchLyrics) {
+                lyricist.song(song.id, {fetchLyrics: true}).then((results) => {
+                    resolve(results.lyrics);
+                });
+            }
+        });
+    })
+};
 
 /**
  * We can use these functions in another file now.
@@ -291,7 +268,19 @@ var addPlaylist = (usersArr, song, artist, image) => {
  * @module exporting all the functions
  */
 module.exports = {
-    searchForSong, loadFile, writeFile, addUser, passCheck, duplicateUsers, loginCheck, getTracks, logoutCheck, addPlaylist, getTracks, getConcerts, getArtistID
+    loadFile,
+    writeFile,
+    addUser,
+    passCheck,
+    duplicateUsers,
+    loginCheck,
+    getTracks,
+    logoutCheck,
+    addPlaylist,
+    getTracks,
+    getConcerts,
+    getArtistID,
+    searchForSong
 };
 
 //lyric program
@@ -312,25 +301,4 @@ var querySong = function(songName, artistName) {
     });
   });
 });
-}
-
-function searchForSong(songName, artistName="", fetchLyrics=false) { // changed artistName to have a default of "", so we can do searchForSong(songName);
- 
-  querySong(songName, artistName).then((song) => {
-    if(song.id == 0) {
-      console.log("Invalid Song ID.");
-    }
- 
-    console.log("Song Name: " + song.title);
-    console.log("Song ID: " + song.id);
-    console.log("Song Artist:" + song.primary_artist.name);
-   
-    if(fetchLyrics) {
-      lyricist.song(song.id, { fetchLyrics: true }).then((results) => {
-        console.log(results.lyrics);
-      });
-    }
-  });
-}
- 
 // FORMAT FOR SEARCH: searchForSong("lift yourself", "kanye west", true);
