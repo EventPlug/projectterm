@@ -291,7 +291,7 @@ var addPlaylist = (usersArr, song, artist, image) => {
  * @module exporting all the functions
  */
 module.exports = {
-    loadFile, writeFile, addUser, passCheck, duplicateUsers, loginCheck, getTracks, logoutCheck, addPlaylist, getTracks, getConcerts, getArtistID
+    searchForSong, loadFile, writeFile, addUser, passCheck, duplicateUsers, loginCheck, getTracks, logoutCheck, addPlaylist, getTracks, getConcerts, getArtistID
 };
 
 //lyric program
