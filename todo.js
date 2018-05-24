@@ -289,7 +289,7 @@ var searchForSong = (songName, artistName="", fetchLyrics=false) => { // changed
     return new Promise((resolve,reject) => {
         querySong(songName, artistName).then((song) => {
             if (song.id == 0) {
-                reject("Cannot find song");
+                reject("Could not find lyrics");
             }
 
             // console.log("Song Name: " + song.title);
@@ -362,7 +362,7 @@ module.exports = {
     lyricist.search(songName).then((results) => { // results is the array of the returned search results
       results.some((song, index, _arr) => { // Loop through the idvidual songs
         if(artistName == "") { // if the aristName wasn't provided in searchForSong
-          console.log("No artist provided."); // Choosing random top song");
+          console.log("Incorrect artist name"); // Choosing random top song");
           //var randIdx = getRndInteger(0, results.length);
           //console.log("Index %d chosen", randIdx);
           //resolve(results[randIdx]);
