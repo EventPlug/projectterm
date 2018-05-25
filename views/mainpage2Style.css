@@ -41,37 +41,6 @@
     color:white;
 }
 
-.songTitle {
-    position: absolute;
-    top:0%;
-    left:32.5%;
-    color:#CACFD1;
-}
-
-.artist {
-    position: absolute;
-    top:30%;
-    left:32.5%;
-    color:#FCFEFF;
-}
-
-.image {
-    position:absolute;
-    left:0%;
-    top:0%;
-    width:174px;
-    height:174px;
-}
-
-.songForm {
-    position:relative;
-    display:inline-block;
-    height:45%;
-    width:45%;
-    margin-bottom: 10%;
-    margin-left: 4%;
-}
-
 
 #songList {
     position:fixed;
@@ -245,4 +214,92 @@ body{
     height:4%;
 }
 
+#artistDiv {
+    position:absolute;
+    left:0px;
+    right:0px;
+    top:0%;
+    margin:auto;
+    width:90vw;
+    height:40vh;
+}
 
+#image {
+    position:absolute;
+    left:0px;
+    top:0px;
+    height:100%;
+    width:auto;
+}
+
+#name {
+    position:absolute;
+    top:0%;
+    left:25%;
+}
+
+#bio {
+    position: absolute;
+    width:70%;
+    top:20%;
+    height:auto;
+    left:25%;
+    font-size:15px;
+}
+
+#time {
+    position:absolute;
+    left:25%;
+    top:70%;
+}
+
+.similarForm {
+    position:relative;
+    width:220px;
+    height:120px;
+    display:inline-block;
+    margin-right:20px;
+}
+
+.similarImage {
+    position:absolute;
+    width:110px;
+    height:96px;
+    top:0px;
+    left:0xp;
+}
+
+.similarArtists {
+    position:absolute;
+    top:0px;
+    left:55%;
+    margin-top:-2px;
+}
+
+#similarArtistsDiv {
+    position:absolute;
+    left:0px;
+    right:0px;
+    bottom:0%;
+    margin:auto;
+    width:90vw;
+    height:25vh;
+}
+
+#details {
+    position:absolute;
+    bottom:0px;
+    left:0px;
+    width:110px;
+}
+
+#error {
+    position:absolute;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    top:0px;
+    margin:auto;
+    width:23vw;
+    height:5vh;
+}
