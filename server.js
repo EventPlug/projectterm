@@ -49,6 +49,7 @@ app.post('/songlyrics', (request, response) => {
     })
 })
 
+
 app.post('/lyrics', (request, response) => {
     todo.searchForSong(request.body.title, request.body.artist).then((result) => {
 		response.render('lyrics.hbs', {
@@ -98,6 +99,20 @@ app.get('/', (request, response) => {
 		signinCheck: 1
 	})
 });
+
+app.get('/mainpage1', (request, response) => {
+	response.render('mytracks.hbs', {
+		title: 'Main page',
+		name: currName
+	})
+})
+
+app.get('/mainpage2', (request, response) => {
+	response.render('mainpage2.hbs', {
+		title: 'Main page',
+		name: currName
+	})
+})
 
 app.get('/mainpage', (request,response) => {
 	if (typeof currSong == 'undefined') {
@@ -194,6 +209,14 @@ app.get('/signup', (request, response) => {
 	})
 });
 
+app.post('/artist', (request, response) => {
+	todo.getArtist(request.body.artist, key).then((result) => {
+		result.name = currName
+		response.render('mainpage2.hbs', result)
+	}).catch((error) => {
+		response.render('mainpage2.hbs', {error: error})
+	})
+})
 
 app.post('/mytracks', (request, response) => {
 	todo.getTracks(request.body.track, key).then((result) => {
@@ -223,6 +246,15 @@ app.post('/mytracks', (request, response) => {
 
 app.post('/tracks', (request, response) => {
 	todo.addPlaylist(request.body.songName, request.body.artistName, request.body.image)
+})
+
+app.post('/similar', (request, response) => {
+	todo.getArtist(request.body.similarArtist, key).then((result) => {
+		result.name = currName
+		response.render('mainpage2.hbs', result)
+	}).catch((error) => {
+		response.render('mainpage2.hbs', {error: error})
+	})
 })
 
 

@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>{{title}}</title>
-        <link href="mytracksStyle.css" rel="stylesheet" type="text/css">
+        <link href="mainpage2Style.css" rel="stylesheet" type="text/css">
         <link href="/partials/footer.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     </head>
@@ -12,10 +12,10 @@
         <div id="greet">Hi {{name}}</div>
 
 
-        <img id="logo" src="EventPlugLogo.PNG" />
+        <img id="logo" src="EventPlugLogo.png" />
 
-        <form id="search" action="/mytracks" method="post">
-            <input type="text" name="track" id="trackSearch" placeholder="Please enter a song">
+        <form id="search" action="/artist" method="post">
+            <input type="text" name="artist" id="trackSearch" placeholder="Please enter an artist name">
             <input id="searchButton" type="submit" value="Search">
         </form>
         
@@ -35,29 +35,23 @@
         <div id="fake"></div>
         
         <div id="songList">
-            <h2 id="error">{{Error}}</h2>
-            {{#each playlist}}
-            <div class="songForm">
-                <h2 class="songTitle">
-                    {{songTitle}}
-                </h2>
-                <h3 class="artist">
-                    {{artist}}
-                </h3>
-                <img src="{{image}}" class="image">
-                <form id="addForm" action="/tracks" method="post">
-                    <input id="addtoPlaylist" class="buttons" type="submit" value="Add to playlist"/>
-                    <input type="hidden" name="songName" value="{{songTitle}}">
-                    <input type="hidden" name="artistName" value="{{artist}}">
-                    <input type="hidden" name="image" value="{{image}}">
-                </form>
-                <form id="getLyricsForm" action="/songlyrics" method="post">
-                    <input id="getLyricsBut" class="buttons" type="submit" value="Song Lyrics"/>
-                    <input type="hidden" name="songTitle" value="{{songTitle}}">
-                    <input type="hidden" name="artistTitle" value="{{artist}}">
-                </form>
+            <div id="error">{{error}}</div>
+            <div id="artistDiv">
+                <img id="image" src="{{image}}">
+                <h1 id="name">{{artist}}</h1>
+                <h3 id="bio">{{bio}}</h3>
+                <h3 id="time">{{time}}</h3>
             </div>
-            {{/each}}
+            <div id="similarArtistsDiv">
+                {{#each similar}}
+                <form class="similarForm" action="/similar" method="post">
+                    <img class="similarImage" src="{{image}}">
+                    <h3 class="similarArtists">{{artist}}</h3>
+                    <input class="buttons" id="details" type="submit" value="Details">
+                    <input name="similarArtist" type="hidden" value="{{artist}}">
+                </form>
+                {{/each}}
+            </div>
         </div>
         
         {{> footer}}
